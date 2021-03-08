@@ -1,0 +1,22 @@
+server:
+  port: 8081
+spring:
+  data:
+    mongodb:
+      authentication-database: boot_mongodb
+      database: boot_mongodb
+      host: localhost
+      username: mongouser
+      password: password
+      port: 27017
+
+
+
+
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+
