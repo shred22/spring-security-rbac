@@ -10,16 +10,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class ApplicationUserDetailsService implements UserDetailsService {
 
-    private final ApplicationUserDetailsRepository repository;
-    private final PasswordEncoder encoder;
+  private final ApplicationUserDetailsRepository repository;
+  private final PasswordEncoder encoder;
 
-    public ApplicationUserDetailsService(ApplicationUserDetailsRepository repository, PasswordEncoder encoder) {
-        this.repository = repository;
-        this.encoder = encoder;
-    }
+  public ApplicationUserDetailsService(ApplicationUserDetailsRepository repository,
+      PasswordEncoder encoder) {
+    this.repository = repository;
+    this.encoder = encoder;
+  }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findByUsername(username);
-    }
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    return repository.findByUsername(username);
+  }
 }

@@ -9,14 +9,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 @WritingConverter
-public class AuthorityListToStringListConverter implements Converter<ApplicationUserDetails, DBObject> {
+public class AuthorityListToStringListConverter implements
+    Converter<ApplicationUserDetails, DBObject> {
 
 
-    @Override
-    public DBObject convert(ApplicationUserDetails user) {
-        DBObject dbObject = new BasicDBObject();
-        dbObject.put("name", "shreyas");
-        dbObject.put("password", "password");
-        return dbObject;
-    }
+  @Override
+  public DBObject convert(ApplicationUserDetails user) {
+    DBObject dbObject = new BasicDBObject();
+    dbObject.put("name", "shreyas");
+    dbObject.put("password", "password");
+    return dbObject;
+  }
 }

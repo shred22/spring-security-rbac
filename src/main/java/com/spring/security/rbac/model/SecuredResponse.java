@@ -12,5 +12,6 @@ import lombok.Setter;
 @Setter
 @Builder
 public class SecuredResponse {
-    private String message;
+
+  private String message;
 }

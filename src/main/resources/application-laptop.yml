@@ -10,11 +10,7 @@ spring:
       password: password
       port: 27017
 
-application:
-  jwt:
-    secretKey: securesecuresecuresecuresecuresecuresecuresecuresecuresecuresecure
-    tokenPrefix: Bearer
-    tokenExpirationAfterDays: 10
+
 
 
 
