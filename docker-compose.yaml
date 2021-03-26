@@ -1,0 +1,32 @@
+version: "3.3"
+services:
+  mongo-docker:
+    container_name: mongo-docker
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - type: volume
+        source: spring-boot-mongodb_mongodata
+        target: /data/db
+        volume:
+          nocopy: true
+    networks:
+      - backend
+  spring-security-rbac:
+    container_name: spring-security-rbac-container
+    build:
+      context: .
+      labels:
+        app: spring-security-rbac
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+    depends_on:
+      - mongo-docker
+networks:
+  backend:
+
+volumes:
+  spring-boot-mongodb_mongodata:

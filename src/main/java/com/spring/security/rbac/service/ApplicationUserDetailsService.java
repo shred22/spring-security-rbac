@@ -11,12 +11,9 @@ import org.springframework.stereotype.Service;
 public class ApplicationUserDetailsService implements UserDetailsService {
 
   private final ApplicationUserDetailsRepository repository;
-  private final PasswordEncoder encoder;
 
-  public ApplicationUserDetailsService(ApplicationUserDetailsRepository repository,
-      PasswordEncoder encoder) {
+  public ApplicationUserDetailsService(ApplicationUserDetailsRepository repository) {
     this.repository = repository;
-    this.encoder = encoder;
   }
 
   @Override

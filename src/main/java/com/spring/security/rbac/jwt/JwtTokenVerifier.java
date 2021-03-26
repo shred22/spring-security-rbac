@@ -6,7 +6,11 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.google.common.base.Strings;
+import com.spring.security.rbac.jwt.util.PemUtils;
+import java.io.File;
 import java.io.IOException;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -51,35 +55,23 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
     DecodedJWT jwt = null;
     Set<SimpleGrantedAuthority> simpleGrantedAuthorities = new HashSet<>();
     try {
-
-      Algorithm algorithm = Algorithm.HMAC256("secret");
+      RSAPrivateKey privateKey = PemUtils.readPrivateKeyFromFile(new File("private_key.pem"), "RSA");
+      RSAPublicKey publicKey = PemUtils.readPublicKeyFromFile(new File("jwt_public.pem"), "RSA");
+      Algorithm algorithm = Algorithm.RSA256(publicKey, privateKey);
       JWTVerifier verifier = JWT.require(algorithm)
-          .withIssuer("auth0")
+          .withIssuer(jwtConfig.getIssuer())
           .build(); //Reusable verifier instance
       jwt = verifier.verify(token);
-      /*List<Map<String, String>> authorities = (List<Map<String, String>>)
-          jwt.getClaim("authorities");*/
+
     } catch (JWTVerificationException exception) {
-      //Invalid signature/claims
+
+      throw new RuntimeException(exception);
     }
-          /*  Jws<Claims> claimsJws = Jwts.parser()
-                    .setSigningKey(secretKey)
-                    .parseClaimsJws(token);
-
-            Claims body = claimsJws.getBody();
-
-            String username = body.getSubject();
-
-            var authorities = (List<Map<String, String>>) body.get("authorities");
-
-            Set<SimpleGrantedAuthority> simpleGrantedAuthorities = authorities.stream()
-                    .map(m -> new SimpleGrantedAuthority(m.get("authority")))
-                    .collect(Collectors.toSet());*/
 
     Authentication authentication = new UsernamePasswordAuthenticationToken(
         jwt.getSubject(),
-        null,
-        Arrays.asList(new SimpleGrantedAuthority("ROLE_MERCHANT_ADMIN")));
+        jwt,
+        Arrays.asList(new SimpleGrantedAuthority("ROLE_MERCHANT_ADMIN"), new SimpleGrantedAuthority("user:write"), new SimpleGrantedAuthority("user:read")));
 
     SecurityContextHolder.getContext().setAuthentication(authentication);
 

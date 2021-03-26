@@ -1,16 +1,21 @@
 server:
-  port: 8081
+  port: 8080
 spring:
   data:
     mongodb:
       authentication-database: boot_mongodb
       database: boot_mongodb
-      host: localhost
+      host: mongo-docker
       username: mongouser
       password: password
       port: 27017
 
-
+application:
+  jwt:
+    issuer: spring-security-rbac
+    secretKey: securesecuresecuresecuresecuresecuresecuresecuresecuresecuresecure
+    tokenPrefix: Bearer
+    tokenExpirationAfterDays: 10
 
 
 

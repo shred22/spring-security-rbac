@@ -52,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
         .addFilterAfter(new JwtTokenVerifier(secretKey, jwtConfig),JwtUsernameAndPasswordAuthenticationFilter.class)
         .authorizeRequests()
-        .antMatchers("/permitted")
+        .antMatchers("/permitted", "/adduser")
         .permitAll()
         .antMatchers(HttpMethod.GET, "/secured").hasRole(MERCHANT_ADMIN.name())
         .antMatchers(HttpMethod.GET, "/secured")
