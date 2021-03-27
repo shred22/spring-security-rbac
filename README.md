@@ -1,3 +1,16 @@
+#Complete working Example 
+
+### Tech Stack
+ - spring Boot
+ - mongodb
+
+## To run the app
+`gradle build`
+
+`docker-compose build`
+
+`docker-compose up`
+
 #RSAKey Pair Generation for JWT
 
 You can generate a public and private RSA key pair like this:

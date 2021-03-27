@@ -3,11 +3,8 @@ server:
 spring:
   data:
     mongodb:
-      authentication-database: boot_mongodb
       database: boot_mongodb
       host: mongo-docker
-      username: mongouser
-      password: password
       port: 27017
 
 application:
@@ -16,8 +13,6 @@ application:
     secretKey: securesecuresecuresecuresecuresecuresecuresecuresecuresecuresecure
     tokenPrefix: Bearer
     tokenExpirationAfterDays: 10
-
-
 
 logging:
   level:

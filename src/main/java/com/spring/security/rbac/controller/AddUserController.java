@@ -27,11 +27,12 @@ public class AddUserController {
   }
 
   @GetMapping("/adduser")
-  public ResponseEntity<ApplicationUserDetails> addUser(@RequestParam("name") String username) {
+  public ResponseEntity<ApplicationUserDetails> addUser() {
 
+    log.info(" ***** Add User request Processing Started ***");
     ApplicationUserDetails user = new ApplicationUserDetails();
     user.setEnabled(true);
-    user.setUsername(username);
+    user.setUsername("shreyas");
     user.setPassword(passwordEncoder.encode("password"));
     user.setCredentialsNonExpired(true);
     user.setAccountNonLocked(true);
@@ -41,7 +42,7 @@ public class AddUserController {
     repository.save(user);
 
 
-    log.info("SAVED USER IN MONGO DB  WITH USERNAME {}", username);
+    log.info("SAVED USER IN MONGO DB  WITH USERNAME {}", "shreyas");
     return ResponseEntity.ok(user);
   }
 }

@@ -1,16 +1,23 @@
 version: "3.3"
 services:
   mongo-docker:
-    container_name: mongo-docker
-    image: mongo
+    image: "mongo:4.4.3"
+    restart: always
     ports:
-      - "27017:27017"
+      - 27018:27017
+    container_name: mongo-docker
+#    build:
+#      context: ./docker/mongodb/
+#      labels:
+#        app: spring-security-rbac
+#    ports:
+#      - 27018:27017
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: mongouser
+#      MONGO_INITDB_ROOT_PASSWORD: password
+#      MONGO_INITDB_DATABASE: admin
     volumes:
-      - type: volume
-        source: spring-boot-mongodb_mongodata
-        target: /data/db
-        volume:
-          nocopy: true
+      - "spring-boot-mongodb_mongodata:/data/db"
     networks:
       - backend
   spring-security-rbac:
@@ -23,6 +30,8 @@ services:
       - "8080:8080"
     networks:
       - backend
+    links:
+      - mongo-docker
     depends_on:
       - mongo-docker
 networks:
